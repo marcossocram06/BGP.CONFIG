@@ -1,0 +1,170 @@
+179.49.184.1:1822
+Eloakernel1106!
+
+# Modo Etitor 
+syetem view
+
+# Salva na lista
+commit
+
+# Acessar vs
+switch virtual-system N8000V02-CDN
+switch virtual-system N8000V03-IX-SP
+
+# Mostar peer 
+display bgp peer
+
+# Mostra detalhes do peer
+display bgp peer (ip-do-peer) verbose
+
+# Ver politica de rota
+display ip ip-prefix  (AS270779)
+
+# Adicionar na lista do peer
+ip ip-prefix AS270779 index 20 permit (168.197.12.0 22) greater-equal 22 less-equal 24
+
+# Apagar prefixo da lista
+undo ip ip-prefix AS270779 index (20)
+
+# Ver oque esta recebendo do peer
+display bgp routing-table peer 10.88.88.22 received-routes
+
+# Ver oque esta sendo anunciado para o peer
+display bgp routing-table peer 100.65.0.2 advertised-routes
+display bgp routing-table peer 187.16.216.254 advertised-routes
+
+# Ver oque esta na politica
+display route-policy
+
+# Altera policitica de as-pach
+route-policy IXSP-OUT permit node 70       - vianet
+route-policy ELETRONET-OUT permit node 25  - rlm-Leandro
+
+
+# Adicionar politica
+apply as-path 271201 additive
+apply as-path 271201 271201 additive
+apply as-path 271201 271201 271201 additive
+
+# Remover politica as-path
+undo apply as-path
+
+
+------------------------------------------------------
+Route-policy: ELETRONET-OUT
+  permit : 2 (matched counts: 5)
+    Match clauses:
+      if-match ip-prefix IMPERANET-AS265463-ELETRONET
+      if-match as-path-filter AS265463
+  permit : 4 (matched counts: 3)
+    Match clauses:
+      if-match ip-prefix VIANET-AS271201-ELETRONET
+  permit : 5 (matched counts: 1)
+    Match clauses:
+      if-match ip-prefix NETSHOW-AS270779-ELETRONET
+    Apply clauses:
+      apply as-path 271201 271201 additive
+  permit : 7 (matched counts: 1)
+    Match clauses:
+      if-match ip-prefix W-NET-AS270941-ELETRONET
+    Apply clauses:
+      apply as-path 271201 271201 additive
+  permit : 8 (matched counts: 1)
+    Match clauses:
+      if-match ip-prefix CONNECT-RODRIGO-AS270941-ELETRONET
+    Apply clauses:
+      apply as-path 271201 271201 additive
+  permit : 9 (matched counts: 4)
+    Match clauses:
+      if-match ip-prefix NETFACIL-AS268011-ELETRONET
+  permit : 10 (matched counts: 2)
+    Match clauses:
+      if-match ip-prefix DIGITAL-WILDEAN-AS263841-ELETRONET
+      if-match as-path-filter AS263841
+    Apply clauses:
+      apply as-path 271201 271201 additive
+  permit : 11 (matched counts: 3)
+    Match clauses:
+      if-match ip-prefix ZION-INTERNET-AS270830-ELETRONET
+    Apply clauses:
+      apply as-path 271201 271201 additive
+  permit : 12 (matched counts: 2)
+    Match clauses:
+      if-match ip-prefix RADAR-BRUNO-ELETRONET
+      if-match as-path-filter AS265909
+    Apply clauses:
+      apply as-path 271201 271201 additive
+  permit : 20 (matched counts: 7)
+    Match clauses:
+      if-match ip-prefix CONECT-LUIZ-AS268737-ELETRONET
+      if-match as-path-filter AS268737
+  permit : 25 (matched counts: 6)
+    Match clauses:
+      if-match ip-prefix RLM-INTERNET-AS270997-ELETRONET
+      if-match as-path-filter AS270997
+
+---------------------------------------------------------------------
+Route-policy: IXSP-OUT
+  permit : 4 (matched counts: 48)
+    Match clauses:
+      if-match ip-prefix VIANET-AS271201-IX
+    Apply clauses:
+      apply as-path 271201 additive
+      apply community 65000:2904 additive
+  permit : 5 (matched counts: 12)
+    Match clauses:
+      if-match ip-prefix NETSHOW-AS270779-IX
+    Apply clauses:
+      apply as-path 271201 additive
+      apply community 65000:2904 additive
+  permit : 6 (matched counts: 27)
+    Match clauses:
+      if-match ip-prefix MAYSNET-AS268595-IX
+    Apply clauses:
+      apply as-path 271201 additive
+      apply community 65000:2904 additive
+  permit : 7 (matched counts: 24)
+    Match clauses:
+      if-match ip-prefix W-NET-AS270941-IX
+    Apply clauses:
+      apply as-path 271201 additive
+      apply community 65000:2904 additive
+  permit : 8 (matched counts: 45)
+    Match clauses:
+      if-match ip-prefix CONNECT-RODRIGO-AS270941-IX
+    Apply clauses:
+      apply as-path 271201 additive
+      apply community 65000:2904 additive
+  permit : 9 (matched counts: 24)
+    Match clauses:
+      if-match ip-prefix DIGITAL-WILDEAN-AS263841-IX
+    Apply clauses:
+      apply as-path 271201 additive
+      apply community 65000:2904 additive
+  permit : 10 (matched counts: 172)
+    Match clauses:
+      if-match ip-prefix ZION-INTERNET-AS270830-IX
+    Apply clauses:
+      apply as-path 271201 additive
+      apply community 65000:2904 additive
+  permit : 11 (matched counts: 36)
+    Match clauses:
+      if-match ip-prefix RLM-INTERNET-AS270997-IX
+    Apply clauses:
+      apply as-path 271201 additive
+      apply community 65000:2904 additive
+  permit : 12 (matched counts: 69)
+    Match clauses:
+      if-match ip-prefix CONECT-LUIZ-AS268737-IX
+      if-match as-path-filter AS268737
+    Apply clauses:
+      apply community 65000:2904 additive
+  permit : 13 (matched counts: 60)
+    Match clauses:
+      if-match ip-prefix CLI-IX-NETFACIL-IPV4-IN
+      if-match as-path-filter AS268011
+    Apply clauses:
+      apply community 65000:2904 additive
+  deny : 100 (matched counts: 4910273)
+
+
